@@ -3,9 +3,9 @@ import { Separator } from "@/components/ui/separator";
 
 const Footer = () => {
   return (
-    <footer className="bg-background text-muted-foreground py-6">
+    <footer className="text-muted-foreground py-6">
       <div className="container mx-auto px-6 text-center" style={{ fontFamily: "Geist, sans-serif" }}>
-        <Separator className="mb-4" />
+        <Separator className="mb-4 text-black" />
         
         <div className="flex justify-center space-x-6 text-sm">
           <Link href="/" className="hover:text-primary">Home</Link>
