@@ -26,8 +26,8 @@ export default function Home() {
 
       {/* Description */}
       <p className="text-lg sm:text-xl text-muted-foreground max-w-md">
-        Reflect, Grow, and Thrive.
-        {/* A smart journal to organize your thoughts, track progress, and stay motivated. */}
+        {/* Reflect, Grow, and Thrive. */}
+        A smart journal to organize your thoughts, track progress, and stay motivated.
       </p>
 
       {/* Features Section */}
@@ -48,7 +48,7 @@ export default function Home() {
 
           {/* Email Sign-up */}
           <Input type="email" placeholder="Enter your email" className="text-lg p-3" />
-          <Button className="w-full text-lg py-3">Continue</Button>
+          <Button className="w-full text-lg py-3 cursor-pointer">Continue</Button>
 
           <div className="relative flex items-center">
             <hr className="w-full border-muted-foreground" />
@@ -58,13 +58,13 @@ export default function Home() {
 
           {/* OAuth Buttons */}
           <div className="space-y-3">
-            <Button variant="outline" className="w-full flex items-center justify-center gap-2">
+            <Button variant="outline" className="w-full flex items-center justify-center gap-2 cursor-pointer">
               <FcGoogle className="w-5 h-5" /> Continue with Google
             </Button>
-            <Button variant="outline" className="w-full flex items-center justify-center gap-2">
+            <Button variant="outline" className="w-full flex items-center justify-center gap-2 cursor-pointer">
               <FaFacebook className="text-blue-600 text-xl" /> Continue with Facebook
             </Button>
-            <Button variant="outline" className="w-full flex items-center justify-center gap-2 text-black">
+            <Button variant="outline" className="w-full flex items-center justify-center gap-2 cursor-pointer text-black">
               <FaApple className="w-5 h-5" /> Continue with Apple
             </Button>
           </div>
