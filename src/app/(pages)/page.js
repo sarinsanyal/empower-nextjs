@@ -24,7 +24,7 @@ export default function Home() {
         </span>
       </h1>
 
-      {/* Description */}
+      {/* Description */} 
       <p className="text-lg sm:text-xl text-muted-foreground max-w-md">
         {/* Reflect, Grow, and Thrive. */}
         A smart journal to organize your thoughts, track progress, and stay motivated.

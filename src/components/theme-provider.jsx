@@ -1,3 +1,6 @@
+//For dark mode
+//INCOMPLETE!!
+
 "use client";
 
 import React from "react";
