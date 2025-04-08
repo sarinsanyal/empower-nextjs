@@ -2,6 +2,7 @@
 
 import { AppSidebar } from "@/components/ui/app-sidebar"
 import { useState } from "react"
+import { GeistSans } from 'geist/font/sans';
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -10,7 +11,6 @@ import {
     BreadcrumbPage,
     BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
-import { Separator } from "@/components/ui/separator"
 import {
     SidebarInset,
     SidebarProvider,
@@ -23,12 +23,13 @@ export default function Page() {
         <SidebarProvider
             className="pt-17 bg-background/10"
             style={{
-                "--sidebar-width": "19rem",
-                fontFamily: "Geist, sans-serif",
+                "--sidebar-width": "16rem",
+                "--sidebar-width-icon": "4rem",
+                fontFamily: "GeistSans, sans-serif",
             }}
         >
-            <AppSidebar className="pt-17 bg-transparent" />
-            <SidebarInset className="rounded-[10px] bg-background/50 ml-2 mr-2"
+            <AppSidebar className="bg-transparent" />
+            <SidebarInset className="rounded-[10px] bg-background/50 ml-2 mr-2 transition-all duration-200 ease-linear"
                 style={{
                     borderRadius: "10px !important",
                 }}

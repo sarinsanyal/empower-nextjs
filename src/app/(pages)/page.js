@@ -16,7 +16,7 @@ export default function Home() {
       style={{ fontFamily: "Geist, sans-serif" }}
     >
       {/* Title */}
-      <h1 className="text-4xl mt-40 sm:text-5xl font-bold tracking-tight">
+      <h1 className="text-4xl mt-40 sm:text-6xl font-bold tracking-tight">
         Welcome to{" "}
         <span className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 
                    text-transparent bg-clip-text animate-gradient">
@@ -36,7 +36,7 @@ export default function Home() {
       </div>
 
       {/* Login/Register Card */}
-      <Card className="mt-8 bg-background/50 backdrop-blur-3xl w-full max-w-sm transform transition-transform">
+      <Card className="mt-8 mb-8 bg-background/50 backdrop-blur-3xl w-full max-w-sm transform transition-transform">
         <CardHeader>
           <CardTitle className="text-xl sm:text-2xl">Get Started</CardTitle>
         </CardHeader>

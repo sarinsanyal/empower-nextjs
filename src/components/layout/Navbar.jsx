@@ -5,9 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Separator } from "@/components/ui/separator";
+import { useState } from "react";
 
 const Navbar = () => {
   const { theme, setTheme } = useTheme();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <nav className="fixed top-0 left-0 w-full h-16 bg-background/50 backdrop-blur-md border-b border-border z-50">
@@ -27,12 +29,25 @@ const Navbar = () => {
           </Link>
 
           <div className="hidden md:flex space-x-4">
-            <Link href="/journal" className="hover:underline">
-              Journal
-            </Link>
-            <Link href="/dashboard" className="hover:underline">
-              Dashboard
-            </Link>
+            {isLoggedIn ? (
+              <>
+                <Link href="/journal" className="hover:underline font-semibold">
+                  Journal
+                </Link>
+                <Link href="/dashboard" className="hover:underline font-semibold">
+                  Dashboard
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link href="/login" className="hover:underline font-semibold">
+                  Login
+                </Link>
+                <Link href="/premium" className="hover:underline font-semibold">
+                  Premium
+                </Link>
+              </>
+            )}
           </div>
         </div>
 

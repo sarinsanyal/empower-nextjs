@@ -14,65 +14,88 @@ import {
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar"
 
-// This is sample data.
+// Navigation data for journal analysis dashboard
 const data = {
   navMain: [
     {
-      title: "Getting Started",
-      url: "#",
+      title: "Dashboard",
+      url: "/dashboard",
       items: [
         {
-          title: "Installation",
-          url: "#",
+          title: "Overview",
+          url: "/dashboard/overview",
         },
         {
-          title: "Project Structure",
-          url: "#",
+          title: "Recent Entries", 
+          url: "/dashboard/entries"
+        }
+      ],
+    },
+    {
+      title: "Analysis",
+      url: "/analysis",
+      items: [
+        {
+          title: "Sentiment Trends",
+          url: "/analysis/sentiment",
+        },
+        {
+          title: "Topic Analysis",
+          url: "/analysis/topics", 
+        },
+        {
+          title: "Key Insights",
+          url: "/analysis/insights",
         },
       ],
     },
     {
-      title: "API Reference",
-      url: "#",
+      title: "Visualizations",
+      url: "/graphs",
       items: [
         {
-          title: "next.config.js Options",
-          url: "#",
+          title: "Mood Timeline",
+          url: "/graphs/mood",
         },
         {
-          title: "CLI",
-          url: "#",
+          title: "Word Frequency",
+          url: "/graphs/words",
         },
         {
-          title: "Edge Runtime",
-          url: "#",
-        },
+          title: "Theme Distribution",
+          url: "/graphs/themes"
+        }
       ],
     },
     {
-      title: "Architecture",
-      url: "#",
+      title: "Settings",
+      url: "/settings",
       items: [
         {
-          title: "Supported Browsers",
-          url: "#",
+          title: "Preferences",
+          url: "/settings/preferences",
         },
         {
-          title: "Turbopack",
-          url: "#",
-        },
+          title: "Notifications",
+          url: "/settings/notifications"
+        }
       ],
     },
     {
       title: "Community",
-      url: "#",
+      url: "/about",
       items: [
         {
-          title: "Contribution Guide",
-          url: "#",
+          title: "Contribute",
+          url: "https://github.com/sarinsanyal/empower-nextjs",
         },
-      ],
-    },
+        {
+          title: "Support",
+          url: "/about/support",
+        },
+        
+      ]
+    }
   ],
 }
 

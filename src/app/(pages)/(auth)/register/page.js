@@ -19,6 +19,7 @@ export default function Register() {
     const [error, setError] = useState("");
     const [email, setEmail] = useState("");
     const [emailError, setEmailError] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const validatePasswords = () => {
         if (password.length < 6) {
@@ -35,11 +36,24 @@ export default function Register() {
         else setEmailError("");
     }
 
+    const handleSubmit = () => {
+        const registered_data = {name, email, password};
+        setLoading(true);
+        console.log("User is being registered manually...");
+        try {
+
+        } catch {
+
+        }
+        setLoading(false);
+        // console.log(registered_data);
+    }
+
     return (
         <section className="flex justify-center items-center min-h-screen px-4 pt-30" style={{ fontFamily: "Geist, sans-serif" }}>
             <Card className="w-full max-w-md shadow-lg p-6 bg-background/60 ">
                 <CardHeader>
-                    <CardTitle className="text-2xl text-center">Create Your Account</CardTitle>
+                    <CardTitle className="text-2xl font-bold text-center">Create Your Account</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                     {/* Name Input */}
@@ -115,6 +129,7 @@ export default function Register() {
 
                     {/* Register Button */}
                     <Button 
+                        onClick = {handleSubmit}
                         className="w-full text-lg py-3 cursor-pointer" disabled={error !== "" || emailError !== ""}>Sign Up
                     </Button>
 

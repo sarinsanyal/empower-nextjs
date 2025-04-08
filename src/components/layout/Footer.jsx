@@ -3,7 +3,7 @@ import { Separator } from "@/components/ui/separator";
 
 const Footer = () => {
   return (
-    <footer className="text-muted-foreground py-6">
+    <footer className="text-muted-foreground py-0">
       <div className="container mx-auto px-6 text-center" style={{ fontFamily: "Geist, sans-serif" }}>
         <Separator className="mb-4 text-black" />
         
