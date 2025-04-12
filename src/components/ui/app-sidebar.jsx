@@ -80,7 +80,7 @@ export function AppSidebar({ user, ...props }) {
                 <div className="flex items-center gap-3">
                   <img
                     src={
-                      user?.profilePhoto ||
+                      user.profilePhoto ||
                       "https://static.vecteezy.com/system/resources/thumbnails/020/765/399/small_2x/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg"
                     }
                     alt="User Avatar"
@@ -88,7 +88,7 @@ export function AppSidebar({ user, ...props }) {
                   />
                   <div className="flex flex-col gap-0.5 leading-none">
                     <span className="font-semibold">
-                      {user?.name || "User"}
+                      {user.name || user.email || "User"}
                     </span>
                   </div>
                 </div>

@@ -5,11 +5,33 @@ import { Button } from "@/components/ui/button";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Separator } from "@/components/ui/separator";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Image from "next/image";
 
 const Navbar = () => {
   const { theme, setTheme } = useTheme();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
+  const data = "";
+
+  useEffect(() => {
+    async function fetchUser() {
+      try {
+        const res = await fetch("/api/user");
+
+        if (res.ok) {
+          const data = await res.json();
+          setUser(data);
+        } else {
+          setUser(null);
+        }
+      } catch (err) {
+        console.error("Error checking user:", err);
+        setUser(null);
+      }
+    }
+
+    fetchUser();
+  }, []);
 
   return (
     <nav className="fixed top-0 left-0 w-full h-16 bg-background/50 backdrop-blur-md border-b border-border z-50">
@@ -22,14 +44,14 @@ const Navbar = () => {
           <Link
             href="/"
             className="text-xl font-semibold whitespace-nowrap 
-             bg-gradient-to-r from-purple-500 to-blue-500 
-             bg-clip-text text-black transition-all duration-500 
-             hover:text-transparent hover:bg-clip-text">
+              bg-gradient-to-r from-purple-500 to-blue-500 
+              bg-clip-text text-black transition-all duration-500 
+              hover:text-transparent hover:bg-clip-text">
             EmPower Journal
           </Link>
 
           <div className="hidden md:flex space-x-4">
-            {isLoggedIn ? (
+            {user ? (
               <>
                 <Link href="/journal" className="hover:underline font-semibold">
                   Journal
@@ -37,6 +59,17 @@ const Navbar = () => {
                 <Link href="/dashboard" className="hover:underline font-semibold">
                   Dashboard
                 </Link>
+                <button
+                  onClick={async () => {
+                    await fetch('/api/logout');
+                    localStorage.removeItem('authToken');
+                    window.location.href = '/';
+                  }}
+                  className="hover:underline font-semibold cursor-pointer"
+                >
+                  Logout
+                </button>
+
               </>
             ) : (
               <>
@@ -51,14 +84,29 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Right: Theme Toggle */}
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-        >
-          {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-        </Button>
+        {/* Right: Profile Photo and Theme Toggle */}
+        <div className="flex flex-row">
+          {user ? (
+            <>
+              <Image
+                src={data.profilePhoto || "/profilePhoto.png"}
+                alt="Profile Photo"
+                height={40}
+                width={40}
+                className="rounded-full cursor-pointer mr-5 border-1 border-gray-300"
+              >
+              </Image>
+            </>
+          ) : <></>}
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          >
+            {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+          </Button>
+        </div>
+
       </div>
       <Separator />
     </nav>

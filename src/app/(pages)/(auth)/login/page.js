@@ -54,9 +54,7 @@ export default function Login() {
             if (response.ok) {
                 console.log("Login Succesful! ", result);
                 toast.success("Login successful! Redirecting to Dashboard...");
-                setTimeout(() => {
-                    router.push('/dashboard');
-                }, 2000)
+                router.push('/dashboard');
             }
             else {
                 console.log("Login failed: ", result.error);
@@ -126,7 +124,7 @@ export default function Login() {
                     <Button
                         onClick={handleLogin}
                         className="w-full text-lg py-3 cursor-pointer"
-                        disabled={passwordError !== "" || emailError !== "" || loading}
+                        disabled={passwordError !== "" || emailError !== "" || loading || !email || !password}
                     >Login</Button>
 
                     {/* Divider */}
