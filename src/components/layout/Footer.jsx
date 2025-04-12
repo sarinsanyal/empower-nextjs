@@ -14,7 +14,7 @@ const Footer = () => {
           <Link href="/contact" className="hover:text-primary">Contact</Link>
         </div>
 
-        <p className="text-xs text-muted-foreground mt-4">
+        <p className="text-xs text-muted-foreground mt-4 mb-4">
           &copy; {new Date().getFullYear()} EmPower Journal. All rights reserved.
         </p>
       </div>

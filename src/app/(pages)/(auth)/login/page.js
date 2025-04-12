@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-    import { FcGoogle } from "react-icons/fc";
+import { FcGoogle } from "react-icons/fc";
 import { FaFacebook, FaApple } from "react-icons/fa";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import validator from "validator";
@@ -31,17 +31,17 @@ export default function Login() {
     }
 
     return (
-        <section className="flex justify-center items-center min-h-screen px-4">
+        <section className="flex justify-center items-center min-h-screen px-4 pt-20">
             <Card className="w-full max-w-md shadow-lg p-6 bg-background/50" style={{ fontFamily: "Geist, sans-serif" }}>
                 <CardHeader>
-                    <CardTitle className="text-2xl text-center">Login to Your Account</CardTitle>
+                    <CardTitle className="text-2xl font-bold text-center">Login to Your Account</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                     {/* Email Input */}
                     <Input 
                         type="email" 
                         placeholder="Enter your email" 
-                        className="p-3 bg-white text-lg" 
+                        className="p-3 bg-white text-sm sm:text-lg" 
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         onBlur={validateEmail}
@@ -55,7 +55,7 @@ export default function Login() {
                         <Input
                             type={showPassword ? "text" : "password"}
                             placeholder="Enter your password"
-                            className="p-3 bg-white text-lg pr-10"
+                            className="p-3 bg-white text-sm sm:text-lg pr-10"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             onBlur={validatePasswords}

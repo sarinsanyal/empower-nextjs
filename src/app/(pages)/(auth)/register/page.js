@@ -2,24 +2,28 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook, FaApple } from "react-icons/fa";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import validator from "validator";
 
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input"
+import { toast } from "sonner";
+
+
 export default function Register() {
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [error, setError] = useState("");
     const [email, setEmail] = useState("");
-    const [emailError, setEmailError] = useState("");
     const [loading, setLoading] = useState(false);
+    const [emailError, setEmailError] = useState("");
+    const router = useRouter();
 
     const validatePasswords = () => {
         if (password.length < 6) {
@@ -36,31 +40,52 @@ export default function Register() {
         else setEmailError("");
     }
 
-    const handleSubmit = () => {
-        const registered_data = {name, email, password};
+    const handleSubmit = async () => {
+        const registered_data = { name, email, password };
         setLoading(true);
         console.log("User is being registered manually...");
         try {
+            const response = await fetch('/api/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(registered_data)
+            });
 
-        } catch {
+            const result = await response.json();
 
+            if (response.ok) {
+                console.log("Registration Successfull! ", result);
+                toast.success("Registration Successful! Redirecting to login page...");
+                setTimeout(() => {
+                    router.push("/login");
+                }, 2000);
+            }
+            else {
+                console.error("Registration Failed: ", result.error);
+                toast.error(result.error || "Something went wrong");
+            }
+
+        } catch (error) {
+            console.error("Error During Registration!! ", error);
+            toast.error("Error During Registration!! ", error);
         }
         setLoading(false);
-        // console.log(registered_data);
     }
 
     return (
-        <section className="flex justify-center items-center min-h-screen px-4 pt-30" style={{ fontFamily: "Geist, sans-serif" }}>
-            <Card className="w-full max-w-md shadow-lg p-6 bg-background/60 ">
+        <section className="flex flex-col justify-center items-center min-h-screen px-4 pt-20" style={{ fontFamily: "Geist, sans-serif" }}>
+            <Card className="w-full max-w-md shadow-lg mt-10 p-4 bg-background/60 ">
                 <CardHeader>
                     <CardTitle className="text-2xl font-bold text-center">Create Your Account</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                     {/* Name Input */}
-                    <Input 
-                        type="text" 
-                        placeholder="Enter your full name" 
-                        className="p-3 bg-white text-lg" 
+                    <Input
+                        type="text"
+                        placeholder="Enter your full name"
+                        className="p-3 bg-white text-sm sm:text-lg"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                     />
@@ -68,7 +93,7 @@ export default function Register() {
                     <Input
                         type="email"
                         placeholder="Enter your email"
-                        className="p-3 bg-white text-lg"
+                        className="p-3 bg-white text-sm sm:text-lg"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         onBlur={validateEmail}
@@ -82,7 +107,7 @@ export default function Register() {
                         <Input
                             type={showPassword ? "text" : "password"}
                             placeholder="Enter your password"
-                            className="p-3 bg-white text-lg pr-10"
+                            className="p-3 bg-white text-sm sm:text-lg pr-10"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             onBlur={validatePasswords}
@@ -91,6 +116,7 @@ export default function Register() {
                             type="button"
                             className="absolute inset-y-0 right-3 sm:right-4 flex items-center p-2 sm:p-3"
                             onClick={() => setShowPassword(!showPassword)}
+                            style={{ paddingRight: 0 }}
                         >
                             {showPassword ? (
                                 <AiOutlineEyeInvisible className="text-xl sm:text-2xl" />
@@ -103,35 +129,59 @@ export default function Register() {
                     {/* Confirm Password Input */}
                     <div className="relative">
                         <Input
-                            type={showConfirmPassword ? "text" : "password"}
+                            type="password"
                             placeholder="Confirm your password"
-                            className="p-3 bg-white text-lg pr-10"
+                            className="p-3 bg-white text-sm sm:text-lg pr-10"
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
                             onBlur={validatePasswords}
                         />
-                        <button
-                            type="button"
-                            className="absolute inset-y-0 right-3 sm:right-4 flex items-center p-2 sm:p-3"
-                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                        >
-                            {showConfirmPassword ? (
-                                <AiOutlineEyeInvisible className="text-xl sm:text-2xl" />
-                            ) : (
-                                <AiOutlineEye className="text-xl sm:text-2xl" />
-                            )}
-                        </button>
-
                     </div>
 
                     {/* Password Error Message */}
                     {error && <p className="text-red-500 text-sm">{error}</p>}
 
                     {/* Register Button */}
-                    <Button 
-                        onClick = {handleSubmit}
-                        className="w-full text-lg py-3 cursor-pointer" disabled={error !== "" || emailError !== ""}>Sign Up
+                    {/* <Dialog> */}
+                    {/* <DialogTrigger asChild> */}
+                    <Button
+                        onClick={handleSubmit}
+                        className="w-full text-lg py-3 cursor-pointer" disabled={error !== "" || emailError !== "" || loading}
+                    >
+                        {loading ? "Registering you in..." : "Register"}
                     </Button>
+                    {/* </DialogTrigger> */}
+
+                    {/* Now for the Manual OTP Verification */}
+                    {/* <DialogContent className="sm:max-w-md">
+                            <DialogHeader>
+                                <DialogTitle>Verify OTP</DialogTitle>
+                                <DialogDescription>
+                                    OTP has been sent to your Email ID: {email ? email : "example@example.com"}
+                                </DialogDescription>
+                            </DialogHeader>
+                            <div className="flex items-center space-x-2">
+                                <InputOTP maxLength={6}>
+                                    <InputOTPGroup>
+                                        <InputOTPSlot index={0} />
+                                        <InputOTPSlot index={1} />
+                                        <InputOTPSlot index={2} />
+                                    </InputOTPGroup>
+                                    <InputOTPSeparator />
+                                    <InputOTPGroup>
+                                        <InputOTPSlot index={3} />
+                                        <InputOTPSlot index={4} />
+                                        <InputOTPSlot index={5} />
+                                    </InputOTPGroup>
+                                </InputOTP>
+                            </div>
+
+                            <div className = "text-xs cursor-pointer hover:underline">
+                                Resend OTP?
+                            </div>
+                        </DialogContent>
+
+                    </Dialog> */}
 
                     {/* Divider */}
                     <div className="relative flex items-center my-4">
@@ -161,17 +211,17 @@ export default function Register() {
                         </Link>
                     </p>
                 </CardContent>
-                {/* <div className="text-center text-xs text-muted-foreground mt-4">
-                    By clicking continue, you agree to our{" "}
-                    <a href="#" className="underline underline-offset-4 hover:text-primary">
-                        Terms of Service
-                    </a>{" "}
-                    and{" "}
-                    <a href="#" className="underline underline-offset-4 hover:text-primary">
-                        Privacy Policy
-                    </a>.
-                </div> */}
             </Card>
+            <div className="text-center text-xs m-10 text-muted-foreground">
+                By clicking continue, you agree to our{" "}
+                <a href="#" className="underline underline-offset-4 hover:text-primary">
+                    Terms of Service
+                </a>{" "}
+                and{" "}
+                <a href="#" className="underline underline-offset-4 hover:text-primary">
+                    Privacy Policy
+                </a>.
+            </div>
         </section>
     );
 }
