@@ -12,6 +12,7 @@ const Footer = () => {
           <Link href="/journal" className="hover:text-primary">Journal</Link>
           <Link href="/about" className="hover:text-primary">About</Link>
           <Link href="/contact" className="hover:text-primary">Contact</Link>
+          <Link href="https://github.com/sarinsanyal/empower-nextjs" className="hover:text-primary" target = "_blank">Contribute</Link>
         </div>
 
         <p className="text-xs text-muted-foreground mt-4 mb-4">

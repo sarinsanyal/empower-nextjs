@@ -21,47 +21,47 @@ const data = {
     {
       title: "Dashboard",
       url: "/dashboard",
-      items: [
-        { title: "Overview", url: "/dashboard/overview" },
-        { title: "Recent Entries", url: "/dashboard/entries" },
-      ],
+      // items: [
+      //   { title: "Overview", url: "/dashboard/overview" },
+      //   { title: "Recent Entries", url: "/dashboard/entries" },
+      // ],
     },
     {
       title: "Analysis",
       url: "/analysis",
-      items: [
-        { title: "Sentiment Trends", url: "/analysis/sentiment" },
-        { title: "Topic Analysis", url: "/analysis/topics" },
-        { title: "Key Insights", url: "/analysis/insights" },
-      ],
+      // items: [
+      //   { title: "Sentiment Trends", url: "/analysis/sentiment" },
+      //   { title: "Topic Analysis", url: "/analysis/topics" },
+      //   { title: "Key Insights", url: "/analysis/insights" },
+      // ],
     },
     {
       title: "Visualizations",
       url: "/graphs",
-      items: [
-        { title: "Mood Timeline", url: "/graphs/mood" },
-        { title: "Word Frequency", url: "/graphs/words" },
-        { title: "Theme Distribution", url: "/graphs/themes" },
-      ],
+      // items: [
+      //   { title: "Mood Timeline", url: "/graphs/mood" },
+      //   { title: "Word Frequency", url: "/graphs/words" },
+      //   { title: "Theme Distribution", url: "/graphs/themes" },
+      // ],
     },
     {
       title: "Settings",
       url: "/settings",
-      items: [
-        { title: "Preferences", url: "/settings/preferences" },
-        { title: "Notifications", url: "/settings/notifications" },
-      ],
+      // items: [
+      //   { title: "Preferences", url: "/settings/preferences" },
+      //   { title: "Notifications", url: "/settings/notifications" },
+      // ],
     },
     {
-      title: "Community",
+      title: "Logout",
       url: "/about",
-      items: [
-        {
-          title: "Contribute",
-          url: "https://github.com/sarinsanyal/empower-nextjs",
-        },
-        { title: "Support", url: "/about/support" },
-      ],
+      // items: [
+      //   {
+      //     title: "Contribute",
+      //     url: "https://github.com/sarinsanyal/empower-nextjs",
+      //   },
+      //   { title: "Support", url: "/about/support" },
+      // ],
     },
   ],
 };

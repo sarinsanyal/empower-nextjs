@@ -36,7 +36,7 @@ export default function Login() {
     }
 
     const handleLogin = async () => {
-        const loginData = {email, password};
+        const loginData = { email, password };
         setLoading(true);
 
         console.log("User is being logged in...");
@@ -48,7 +48,6 @@ export default function Login() {
                 },
                 body: JSON.stringify(loginData)
             })
-
             const result = await response.json();
 
             if (response.ok) {
@@ -60,7 +59,7 @@ export default function Login() {
                 console.log("Login failed: ", result.error);
                 toast.error(result.error || "Something went wrong");
             }
-
+            
         } catch (error) {
             console.error("Error During Registration!! ", error);
             toast.error("Error During Registration!! ", error);
