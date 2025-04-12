@@ -48,9 +48,9 @@ const Navbar = () => {
 					<Link
 						href="/"
 						className="text-xl font-semibold whitespace-nowrap 
-              bg-gradient-to-r from-purple-500 to-blue-500 
-              bg-clip-text text-black transition-all duration-500 
-              hover:text-transparent hover:bg-clip-text">
+              					   bg-gradient-to-r from-purple-500 to-blue-500 
+              					   bg-clip-text text-black transition-all duration-500 
+              					   hover:text-transparent hover:bg-clip-text">
 						EmPower Journal
 					</Link>
 

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   Sidebar,
@@ -14,6 +15,7 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
+import { Button } from "@/components/ui/button";
 
 // Navigation data
 const data = {
@@ -50,17 +52,6 @@ const data = {
       // items: [
       //   { title: "Preferences", url: "/settings/preferences" },
       //   { title: "Notifications", url: "/settings/notifications" },
-      // ],
-    },
-    {
-      title: "Logout",
-      url: "/about",
-      // items: [
-      //   {
-      //     title: "Contribute",
-      //     url: "https://github.com/sarinsanyal/empower-nextjs",
-      //   },
-      //   { title: "Support", url: "/about/support" },
       // ],
     },
   ],
@@ -130,6 +121,28 @@ export function AppSidebar({ user, ...props }) {
                 )}
               </SidebarMenuItem>
             ))}
+            {!user.profileCompleted ? (
+              <Button className="bg-white text-black hover:bg-gray-100 cursor-pointer">
+                <Link href="/complete-profile">
+                  Complete Profile
+                </Link>
+              </Button>
+            ) : (
+              null
+            )}
+            <Button
+              className="cursor-pointer"
+              onClick={async () => {
+                localStorage.removeItem('authToken');
+                const response = await fetch('/api/logout', {
+                  method: 'POST',
+                });
+                window.location.reload();
+
+                if (response.ok) toast.message('User Logged Out');
+                else toast.error('Error Logging out');
+              }}
+            >Logout</Button>
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>

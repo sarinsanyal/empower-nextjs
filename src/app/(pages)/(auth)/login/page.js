@@ -101,6 +101,7 @@ export default function Login() {
                             type="button"
                             className="absolute inset-y-0 right-3 sm:right-4 flex items-center p-2 sm:p-3"
                             onClick={() => setShowPassword(!showPassword)}
+                            style={{ paddingRight: 0 }}
                         >
                             {showPassword ? (
                                 <AiOutlineEyeInvisible className="text-xl sm:text-2xl" />
