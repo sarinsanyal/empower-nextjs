@@ -1,6 +1,7 @@
-import * as React from "react"
-import { GalleryVerticalEnd } from "lucide-react"
+"use client";
 
+import * as React from "react";
+import { usePathname } from "next/navigation";
 import {
   Sidebar,
   SidebarContent,
@@ -12,73 +13,43 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 
-// Navigation data for journal analysis dashboard
+// Navigation data
 const data = {
   navMain: [
     {
       title: "Dashboard",
       url: "/dashboard",
       items: [
-        {
-          title: "Overview",
-          url: "/dashboard/overview",
-        },
-        {
-          title: "Recent Entries", 
-          url: "/dashboard/entries"
-        }
+        { title: "Overview", url: "/dashboard/overview" },
+        { title: "Recent Entries", url: "/dashboard/entries" },
       ],
     },
     {
       title: "Analysis",
       url: "/analysis",
       items: [
-        {
-          title: "Sentiment Trends",
-          url: "/analysis/sentiment",
-        },
-        {
-          title: "Topic Analysis",
-          url: "/analysis/topics", 
-        },
-        {
-          title: "Key Insights",
-          url: "/analysis/insights",
-        },
+        { title: "Sentiment Trends", url: "/analysis/sentiment" },
+        { title: "Topic Analysis", url: "/analysis/topics" },
+        { title: "Key Insights", url: "/analysis/insights" },
       ],
     },
     {
       title: "Visualizations",
       url: "/graphs",
       items: [
-        {
-          title: "Mood Timeline",
-          url: "/graphs/mood",
-        },
-        {
-          title: "Word Frequency",
-          url: "/graphs/words",
-        },
-        {
-          title: "Theme Distribution",
-          url: "/graphs/themes"
-        }
+        { title: "Mood Timeline", url: "/graphs/mood" },
+        { title: "Word Frequency", url: "/graphs/words" },
+        { title: "Theme Distribution", url: "/graphs/themes" },
       ],
     },
     {
       title: "Settings",
       url: "/settings",
       items: [
-        {
-          title: "Preferences",
-          url: "/settings/preferences",
-        },
-        {
-          title: "Notifications",
-          url: "/settings/notifications"
-        }
+        { title: "Preferences", url: "/settings/preferences" },
+        { title: "Notifications", url: "/settings/notifications" },
       ],
     },
     {
@@ -89,33 +60,36 @@ const data = {
           title: "Contribute",
           url: "https://github.com/sarinsanyal/empower-nextjs",
         },
-        {
-          title: "Support",
-          url: "/about/support",
-        },
-        
-      ]
-    }
+        { title: "Support", url: "/about/support" },
+      ],
+    },
   ],
-}
+};
 
 export function AppSidebar({ user, ...props }) {
+  const pathname = usePathname();
+
   return (
     <Sidebar variant="floating" {...props}>
+      {/* Top Profile Section */}
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <a href="#">
-                {/* User Profile Section */}
                 <div className="flex items-center gap-3">
                   <img
-                    src={user?.photo || "/default-image.png"} // Fallback avatar
+                    src={
+                      user?.profilePhoto ||
+                      "https://static.vecteezy.com/system/resources/thumbnails/020/765/399/small_2x/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg"
+                    }
                     alt="User Avatar"
                     className="size-8 rounded-full border border-gray-300"
                   />
                   <div className="flex flex-col gap-0.5 leading-none">
-                    <span className="font-semibold">{user?.name || "User"}</span>
+                    <span className="font-semibold">
+                      {user?.name || "User"}
+                    </span>
                   </div>
                 </div>
               </a>
@@ -123,27 +97,37 @@ export function AppSidebar({ user, ...props }) {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
+
+      {/* Navigation Menu */}
       <SidebarContent>
         <SidebarGroup>
           <SidebarMenu className="gap-2">
             {data.navMain.map((item) => (
               <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton asChild>
+                <SidebarMenuButton
+                  asChild
+                  isActive={pathname === item.url}
+                >
                   <a href={item.url} className="font-medium">
                     {item.title}
                   </a>
                 </SidebarMenuButton>
-                {item.items?.length ? (
+
+                {/* Sub-items if present */}
+                {item.items?.length > 0 && (
                   <SidebarMenuSub className="ml-0 border-l-0 px-1.5">
                     {item.items.map((subItem) => (
                       <SidebarMenuSubItem key={subItem.title}>
-                        <SidebarMenuSubButton asChild isActive={subItem.isActive}>
+                        <SidebarMenuSubButton
+                          asChild
+                          isActive={pathname === subItem.url}
+                        >
                           <a href={subItem.url}>{subItem.title}</a>
                         </SidebarMenuSubButton>
                       </SidebarMenuSubItem>
                     ))}
                   </SidebarMenuSub>
-                ) : null}
+                )}
               </SidebarMenuItem>
             ))}
           </SidebarMenu>

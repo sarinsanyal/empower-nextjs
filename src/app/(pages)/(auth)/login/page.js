@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -9,25 +9,65 @@ import { FcGoogle } from "react-icons/fc";
 import { FaFacebook, FaApple } from "react-icons/fa";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import validator from "validator";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [emailError, setEmailError] = useState("");
-    const [error, setError] = useState("");
+    const [passwordError, setPasswordError] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    const router = useRouter();
 
     const validatePasswords = () => {
         if (password.length < 6) {
-            setError("Password must be at least 6 characters long.");
+            setPasswordError("Password must be at least 6 characters long.");
         } else {
-            setError("");
+            setPasswordError("");
         }
     };
 
     const validateEmail = () => {
         if (!validator.isEmail(email)) setEmailError("Invalid Email Format");
         else setEmailError("");
+    }
+
+    const handleLogin = async () => {
+        const loginData = {email, password};
+        setLoading(true);
+
+        console.log("User is being logged in...");
+        try {
+            const response = await fetch('api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(loginData)
+            })
+
+            const result = await response.json();
+
+            if (response.ok) {
+                console.log("Login Succesful! ", result);
+                toast.success("Login successful! Redirecting to Dashboard...");
+                setTimeout(() => {
+                    router.push('/dashboard');
+                }, 2000)
+            }
+            else {
+                console.log("Login failed: ", result.error);
+                toast.error(result.error || "Something went wrong");
+            }
+
+        } catch (error) {
+            console.error("Error During Registration!! ", error);
+            toast.error("Error During Registration!! ", error);
+        }
+        setLoading(false);
     }
 
     return (
@@ -38,10 +78,10 @@ export default function Login() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                     {/* Email Input */}
-                    <Input 
-                        type="email" 
-                        placeholder="Enter your email" 
-                        className="p-3 bg-white text-sm sm:text-lg" 
+                    <Input
+                        type="email"
+                        placeholder="Enter your email"
+                        className="p-3 bg-white text-sm sm:text-lg"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         onBlur={validateEmail}
@@ -73,7 +113,7 @@ export default function Login() {
                         </button>
                     </div>
                     {/* Password Error Message */}
-                    {error && <p className="text-red-500 text-sm">{error}</p>}
+                    {passwordError && <p className="text-red-500 text-sm">{passwordError}</p>}
 
                     {/* Forgot Password Link */}
                     <div className="flex justify-end">
@@ -83,7 +123,11 @@ export default function Login() {
                     </div>
 
                     {/* Login Button */}
-                    <Button className="w-full text-lg py-3 cursor-pointer" disabled={error !== "" || emailError !== ""}>Login</Button>
+                    <Button
+                        onClick={handleLogin}
+                        className="w-full text-lg py-3 cursor-pointer"
+                        disabled={passwordError !== "" || emailError !== "" || loading}
+                    >Login</Button>
 
                     {/* Divider */}
                     <div className="relative flex items-center my-4">

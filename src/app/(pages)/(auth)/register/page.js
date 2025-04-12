@@ -19,7 +19,7 @@ export default function Register() {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
-    const [error, setError] = useState("");
+    const [passwordError, setPasswordError] = useState("");
     const [email, setEmail] = useState("");
     const [loading, setLoading] = useState(false);
     const [emailError, setEmailError] = useState("");
@@ -27,11 +27,11 @@ export default function Register() {
 
     const validatePasswords = () => {
         if (password.length < 6) {
-            setError("Password must be at least 6 characters long.");
+            setPasswordError("Password must be at least 6 characters long.");
         } else if (password !== confirmPassword) {
-            setError("Passwords do not match.");
+            setPasswordError("Passwords do not match.");
         } else {
-            setError("");
+            setPasswordError("");
         }
     };
 
@@ -60,7 +60,7 @@ export default function Register() {
                 toast.success("Registration Successful! Redirecting to login page...");
                 setTimeout(() => {
                     router.push("/login");
-                }, 2000);
+                }, 1000);
             }
             else {
                 console.error("Registration Failed: ", result.error);
@@ -139,14 +139,14 @@ export default function Register() {
                     </div>
 
                     {/* Password Error Message */}
-                    {error && <p className="text-red-500 text-sm">{error}</p>}
+                    {passwordError && <p className="text-red-500 text-sm">{passwordError}</p>}
 
                     {/* Register Button */}
                     {/* <Dialog> */}
                     {/* <DialogTrigger asChild> */}
                     <Button
                         onClick={handleSubmit}
-                        className="w-full text-lg py-3 cursor-pointer" disabled={error !== "" || emailError !== "" || loading}
+                        className="w-full text-lg py-3 cursor-pointer" disabled={passwordError !== "" || emailError !== "" || loading}
                     >
                         {loading ? "Registering you in..." : "Register"}
                     </Button>

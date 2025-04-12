@@ -1,6 +1,7 @@
 import mongoose, { Schema, Document, Model } from 'mongoose';
 import bcrypt from 'bcrypt';
 
+// Define the user schema
 const UserSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -15,13 +16,11 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-
     profileCompleted: {
         type: Boolean,
         default: false,
     },
-
-    //Now comes the later register part
+    //for the later register part
     sex: {
         type: String,
         default: null
@@ -38,10 +37,9 @@ const UserSchema = new mongoose.Schema({
         type: String,
         default: 'https://static.vecteezy.com/system/resources/thumbnails/020/765/399/small_2x/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg'
     },
-    
-}, { timestamp: true });
+}, { timestamps: true });
 
-//bcrypt stuff
+// Hash password before saving
 UserSchema.pre('save', async function (next) {
     try {
         if (this.isModified('password')) {
@@ -54,5 +52,7 @@ UserSchema.pre('save', async function (next) {
     }
 });
 
-const User = mongoose.model('User', UserSchema)
+
+const User = mongoose.models.User || mongoose.model('User', UserSchema);
+
 export default User;
